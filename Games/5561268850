@@ -1,0 +1,13 @@
+if game.PlaceId ~= 5561268850 then
+    game.Players.LocalPlayer:Kick("Wrong game please wait..")
+    wait(3)
+    game:GetService("TeleportService"):Teleport(5561268850,LocalPlayer)
+end;
+
+if getgenv().IsLoaded == true then 
+game.Players.LocalPlayer:Kick("Don't execute more than once")
+else
+getgenv().IsLoaded = true;
+end;
+
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = tostring("Start A Game For This To Work"),Duration = 50})
