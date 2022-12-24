@@ -69,7 +69,7 @@ pcall(function()
         if v:IsA("Humanoid") and not table.find(getgenv().config.Players,v.Parent.Name) and v.Parent.Name ~= "Friendly Droid" and v.Parent.Name ~= "Anti Droid" and v~=game.Players.LocalPlayer and not v.Parent:FindFirstChild("ForceField") and v.Parent:WaitForChild("Head") and v.Parent.Name ~= "Crystal" then
             game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):Activate()
             v.Health = 0
-            v.Parent.PrimaryPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,16)
+            v.Parent.PrimaryPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,0,13)
             firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("Handle"),v.Parent.Head,0)
             firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild("Handle"),v.Parent.Head,1)
         elseif v:IsA("Humanoid") and v.Parent.Name == "Crystal" or v.Parent.Name == "CrystalPink" and v.Health>0 then
