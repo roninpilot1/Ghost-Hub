@@ -1,1 +1,207 @@
 
+--// Variables \\--
+
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))();
+
+local w = library:CreateWindow("Universal - Ghost Hub");
+
+local m = w:CreateFolder("Esp");
+
+local a = w:CreateFolder("Misc");
+
+local s = w:CreateFolder("Settings");
+
+local f = w:CreateFolder("Info");
+
+--// Functions \\--
+
+f:Label("Made By: ronin#5376",{
+    TextSize = 20; 
+    TextColor = Color3.fromRGB(0,255,0);
+    BgColor = Color3.fromRGB(38,38,38); 
+    
+});
+
+--// Script \\--
+getgenv().config = {
+    Highlight_Esp = false;
+    Highlight_Esp_R = 0;
+    Highlight_Esp_G = 255;
+    Highlight_Esp_B = 0;
+    Highlight_Esp_Transparency = 0.5;
+    Name_Esp = false;
+    Name_Displacement = 5;
+    Name_Esp_R = 0;
+    Name_Esp_G = 255;
+    Name_Esp_B = 0;
+};
+
+game.RunService.Heartbeat:Connect(function()
+if getgenv().config.Highlight_Esp then
+    for i,v in ipairs(game.Players:GetPlayers()) do
+        if v~=game.Players.LocalPlayer then
+            v=v.Character
+            if not v:FindFirstChild("Highlight") and v:WaitForChild("HumanoidRootPart") then
+                local Highlight = Instance.new("Highlight",v)
+                Highlight.OutlineColor = Color3.fromRGB(255,255,255)
+                Highlight.FillColor = Color3.fromRGB(255,0,0)
+                Highlight.Enabled = true
+                Highlight.FillTransparency = 0.5;
+                Highlight.OutlineTransparency = 1
+            elseif v:FindFirstChild("Highlight") then
+                v:FindFirstChild("Highlight").Enabled = true
+                v:FindFirstChild("Highlight").FillTransparency = getgenv().config.Highlight_Esp_Transparency
+                v:FindFirstChild("Highlight").OutlineTransparency = 1
+                v:FindFirstChild("Highlight").FillColor = Color3.fromRGB(getgenv().config.Highlight_Esp_R,getgenv().config.Highlight_Esp_G,getgenv().config.Highlight_Esp_B)
+            end
+        end
+    end
+end
+end);
+
+game.RunService.Heartbeat:Connect(function()
+if getgenv().config.Name_Esp then
+    for i,v in ipairs(game.Players:GetPlayers()) do
+        if v~=game.Players.LocalPlayer then
+            v=v.Character:WaitForChild("Head")
+            if not v:FindFirstChild("BillboardGui") then
+                local Text_Esp = Instance.new('BillboardGui', v)
+                Text_Esp.Adornee = v
+                Text_Esp.Size = UDim2.new(15,0,1,0)
+                Text_Esp.StudsOffset = Vector3.new(0,5,0)
+                Text_Esp.Parent = v
+                Text_Esp.AlwaysOnTop = true
+                local label_Name = Instance.new("TextLabel")
+                label_Name.BackgroundTransparency = 1
+                label_Name.Size = UDim2.new(1,0,1,0)
+                label_Name.TextColor3 = Color3.new(1,1,1)
+                label_Name.TextScaled = false
+                label_Name.Text = tostring(v.Parent.Name.." | "..math.round(v.Parent.Humanoid.Health).."/"..math.round(v.Parent.Humanoid.MaxHealth))
+                label_Name.Parent = Text_Esp
+            elseif v:FindFirstChild("BillboardGui") then
+                v:WaitForChild("BillboardGui").StudsOffset = Vector3.new(0,getgenv().config.Name_Displacement,0)
+                v:WaitForChild("BillboardGui"):WaitForChild("TextLabel").TextColor3 = Color3.fromRGB(getgenv().config.Name_Esp_R,getgenv().config.Name_Esp_G,getgenv().config.Name_Esp_B)
+                v:WaitForChild("BillboardGui"):WaitForChild("TextLabel").Text = tostring(v.Parent.Name.." | "..math.round(v.Parent.Humanoid.Health).."/"..math.round(v.Parent.Humanoid.MaxHealth))
+            end
+        end
+    end
+end
+end);
+
+
+--// Buttons \\--
+
+
+m:Toggle("Highlight Esp",function(bool)
+    getgenv().config.Highlight_Esp = bool
+    if bool == false then
+        for i,v in ipairs(game.Players:GetPlayers()) do
+            pcall(function()
+            if v~=game.Players.LocalPlayer then
+                v=v.Character
+                if v:FindFirstChild("Highlight") then
+                    v:FindFirstChild("Highlight").Parent = nil
+                end
+            end
+        end)
+    end
+end
+end);
+
+m:Toggle("Username Esp",function(bool)
+    getgenv().config.Name_Esp = bool
+    if bool == false then
+        for i,v in ipairs(game.Players:GetPlayers()) do
+            pcall(function()
+            if v~=game.Players.LocalPlayer then
+                v=v.Character:WaitForChild("Head")
+                if v:FindFirstChild("BillboardGui") then
+                    v:FindFirstChild("BillboardGui").Parent = nil
+                end
+            end
+        end)
+    end
+end
+end);
+
+s:Label("Name Esp Settings:",{
+    TextSize = 20; 
+    TextColor = Color3.fromRGB(0,255,0);
+    BgColor = Color3.fromRGB(38,38,38); 
+    
+})
+
+s:Slider("Name Esp Displacement",{
+    min = -10; 
+    max = 15; 
+    precise = true;
+},function(value)
+    getgenv().config.Name_Displacement = value
+end)
+
+s:Slider("Red",{
+    min = 0; 
+    max = 255; 
+    precise = false;
+},function(value)
+    getgenv().config.Name_Esp_R = value
+end)
+
+s:Slider("Green",{
+    min = 0; 
+    max = 255; 
+    precise = false;
+},function(value)
+    getgenv().config.Name_Esp_G = value
+end)
+
+s:Slider("Blue",{
+    min = 0; 
+    max = 255; 
+    precise = false;
+},function(value)
+    getgenv().config.Name_Esp_B = value
+end)
+
+s:Label("Highlight Settings:",{
+    TextSize = 20; 
+    TextColor = Color3.fromRGB(0,255,0);
+    BgColor = Color3.fromRGB(38,38,38); 
+    
+})
+
+s:Slider("Transparency",{
+    min = 0; 
+    max = 1; 
+    precise = true;
+},function(value)
+    getgenv().config.Highlight_Esp_Transparency = value
+end)
+
+s:Slider("Red",{
+    min = 0; 
+    max = 255; 
+    precise = false;
+},function(value)
+    getgenv().config.Highlight_Esp_R = value
+end)
+
+s:Slider("Green",{
+    min = 0; 
+    max = 255; 
+    precise = false;
+},function(value)
+    getgenv().config.Highlight_Esp_G = value
+end)
+
+s:Slider("Blue",{
+    min = 0; 
+    max = 255; 
+    precise = false;
+},function(value)
+    getgenv().config.Highlight_Esp_B = value
+end)
+
+a:Button("No Fog",function()
+    game:GetService("Lighting"):WaitForChild("Fog").Parent = nil
+end);
