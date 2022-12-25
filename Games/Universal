@@ -205,3 +205,11 @@ end)
 a:Button("No Fog",function()
     game:GetService("Lighting"):WaitForChild("Fog").Parent = nil
 end);
+
+a:Button("Full Bright",function()
+    Lighting.Brightness = 2
+	Lighting.ClockTime = 14
+	Lighting.FogEnd = 100000
+	Lighting.GlobalShadows = false
+	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+end);
