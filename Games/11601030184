@@ -1,3 +1,15 @@
+if game.PlaceId ~= 11601030184 then
+    game.Players.LocalPlayer:Kick("Wrong game please wait..")
+    wait(3)
+    game:GetService("TeleportService"):Teleport(11601030184,LocalPlayer)
+end;
+
+if getgenv().IsLoaded == true then 
+game.Players.LocalPlayer:Kick("Don't execute more than once")
+else
+getgenv().IsLoaded = true;
+end;
+
 
 --// Variables \\--
 local Atlas = loadstring(game:HttpGet("https://siegehub.net/Atlas.lua"))()
