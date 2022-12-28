@@ -11,7 +11,7 @@ getgenv().IsLoaded = true;
 end;
 
 
---// Variables \\--
+--// Variables \\---
 local Atlas = loadstring(game:HttpGet("https://siegehub.net/Atlas.lua"))()
 
 local UI = Atlas.new({
