@@ -41,11 +41,11 @@ if getgenv().config.Highlight_Esp then
             v=v.Character
             if not v:FindFirstChild("Highlight") and v:WaitForChild("HumanoidRootPart") then
                 local Highlight = Instance.new("Highlight",v)
-                Highlight.OutlineColor = Color3.fromRGB(255,255,255)
+                Highlight.OutlineColor = Color3.fromRGB(0,0,0)
                 Highlight.FillColor = Color3.fromRGB(255,0,0)
                 Highlight.Enabled = true
                 Highlight.FillTransparency = 0.5;
-                Highlight.OutlineTransparency = 1
+                Highlight.OutlineTransparency = 0
             elseif v:FindFirstChild("Highlight") then
                 v:FindFirstChild("Highlight").Enabled = true
                 v:FindFirstChild("Highlight").FillTransparency = getgenv().config.Highlight_Esp_Transparency
