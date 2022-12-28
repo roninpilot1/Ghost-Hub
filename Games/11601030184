@@ -10,6 +10,12 @@ else
 getgenv().IsLoaded = true;
 end;
 
+local Current_CoreGui = {"RobloxGui","CoreScriptLocalization","TeleportGui","RobloxPromptGui","RobloxNetworkPauseNotification","PlayerList","PurchasePrompt","AvatarEditorPrompts","TeleportEffectGui","HeadsetDisconnectedDialog","ThemeProvider","InGameFullscreenTitleBarScreen","BubbleChat","DevConsoleMaster"}
+for i,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+    if not table.find(Current_CoreGui,v.Name) and not v.Name ~= "Atlas" then
+        game.Players.LocalPlayer:Kick("Don't have more than 1 script executed")
+    end
+end
 
 --// Variables \\---
 local Atlas = loadstring(game:HttpGet("https://siegehub.net/Atlas.lua"))()
