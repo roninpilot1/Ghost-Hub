@@ -76,6 +76,7 @@ if getgenv().config.Name_Esp then
                 label_Name.TextScaled = false
                 label_Name.Text = tostring(v.Parent.Name.." | "..math.round(v.Parent.Humanoid.Health).."/"..math.round(v.Parent.Humanoid.MaxHealth))
                 label_Name.Parent = Text_Esp
+		label_Name.TextStrokeTransparency = 0.4
             elseif v:FindFirstChild("BillboardGui") then
                 v:WaitForChild("BillboardGui").StudsOffset = Vector3.new(0,getgenv().config.Name_Displacement,0)
                 v:WaitForChild("BillboardGui"):WaitForChild("TextLabel").TextColor3 = getgenv().config.Highlight_Esp_Color
