@@ -45,7 +45,7 @@ if getgenv().config.Highlight_Esp then
                 Highlight.FillColor = Color3.fromRGB(255,0,0)
                 Highlight.Enabled = true
                 Highlight.FillTransparency = 0.5;
-                Highlight.OutlineTransparency = 0
+                Highlight.OutlineTransparency = 1
             elseif v:FindFirstChild("Highlight") then
                 v:FindFirstChild("Highlight").Enabled = true
                 v:FindFirstChild("Highlight").FillTransparency = getgenv().config.Highlight_Esp_Transparency
