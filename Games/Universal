@@ -11,7 +11,7 @@ local UI = Atlas.new({
     UseLoader = false; 
     FullName = "Ghost Hub"; 
     CheckKey = function(inputtedKey)
-        return inputtedKey == "1"
+        return inputtedKey == "G:5@7i>:aLDc=It"
     end;
     Discord = "https://discord.gg/4FGbzT5dsZ"; 
 })
