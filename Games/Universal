@@ -9,7 +9,7 @@ local UI = Atlas.new({
     Credit = "Made By ronin#5376"; 
     Color = Color3.fromRGB(255,255,255); 
     Bind = "RightControl"; 
-    UseLoader = true; 
+    UseLoader = false; 
 })
 
 local Esp_Page = UI:CreatePage("Esp")
