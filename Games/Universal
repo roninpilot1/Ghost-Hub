@@ -1,30 +1,40 @@
 
 --// Variables \\--
+
 local Atlas = loadstring(game:HttpGet("https://siegehub.net/Atlas.lua"))()
 
 local UI = Atlas.new({
     Name = "Ghost Hub | Universal"; 
-    ConfigFolder = "Ghost Hub";
+    ConfigFolder = "";
     Credit = "Made By ronin#5376"; 
     Color = Color3.fromRGB(255,255,255); 
     Bind = "RightControl"; 
-    UseLoader = false; 
-    FullName = "Ghost Hub"; 
-    CheckKey = function(inputtedKey)
-        return inputtedKey == "G:5@7i>:aLDc=It"
-    end;
-    Discord = "https://discord.gg/4FGbzT5dsZ"; 
+    UseLoader = true; 
 })
 
 local Esp_Page = UI:CreatePage("Esp")
 
 local Misc_Page = UI:CreatePage("Misc")
 
+local Info_Page = UI:CreatePage("Info")
+
+local Info = Info_Page:CreateSection("Info")
+
 local Esp = Esp_Page:CreateSection("Player Esp")
 
 local Misc = Misc_Page:CreateSection("Misc")
 
 --// Script \\--
+
+local Creator = Info:CreateParagraph("Made by: ronin#5376") 
+Info:CreateButton({
+    Name = "Click To Copy Discord"; 
+    Callback = function()
+        setclipboard("https://discord.gg/4FGbzT5dsZ")
+        toclipboard("https://discord.gg/4FGbzT5dsZ")
+    end
+})
+
 getgenv().config = {
     Highlight_Esp = false;
     Highlight_Esp_Color = Color3.fromRGB(255,255,255);
@@ -41,7 +51,7 @@ if getgenv().config.Highlight_Esp then
             v=v.Character
             if not v:FindFirstChild("Highlight") and v:WaitForChild("HumanoidRootPart") then
                 local Highlight = Instance.new("Highlight",v)
-                Highlight.OutlineColor = Color3.fromRGB(0,0,0)
+                Highlight.OutlineColor = Color3.fromRGB(255,255,255)
                 Highlight.FillColor = Color3.fromRGB(255,0,0)
                 Highlight.Enabled = true
                 Highlight.FillTransparency = 0.5;
@@ -76,7 +86,6 @@ if getgenv().config.Name_Esp then
                 label_Name.TextScaled = false
                 label_Name.Text = tostring(v.Parent.Name.." | "..math.round(v.Parent.Humanoid.Health).."/"..math.round(v.Parent.Humanoid.MaxHealth))
                 label_Name.Parent = Text_Esp
-		label_Name.TextStrokeTransparency = 0.4
             elseif v:FindFirstChild("BillboardGui") then
                 v:WaitForChild("BillboardGui").StudsOffset = Vector3.new(0,getgenv().config.Name_Displacement,0)
                 v:WaitForChild("BillboardGui"):WaitForChild("TextLabel").TextColor3 = getgenv().config.Highlight_Esp_Color
@@ -89,6 +98,9 @@ end);
 
 
 --// Buttons \\--
+
+
+--// Esp Buttons \\--
 Esp:CreateToggle({ 
     Name = "Highlight Esp"; 
     Flag = "Highlight_Esp";
@@ -170,6 +182,8 @@ Esp:CreateSlider({
     SavingDisabled = true;
 })
 
+--// Misc Buttons \\--
+
 Misc:CreateButton({
     Name = "No Fog"; 
     Callback = function()
@@ -188,6 +202,8 @@ Misc:CreateButton({
     	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128) 
     end
 })
+
+local ToggleUi = Misc:CreateParagraph("Right Ctrl Toggles The Ui") 
 
 Misc:CreateButton({
     Name = "Destory Ui"; 
