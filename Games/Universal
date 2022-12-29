@@ -129,7 +129,7 @@ Esp:CreateSlider({
     Min = 0; 
     Max = 1;
     AllowOutOfRange = false;
-    Digits = 1; 
+    Digits = 2; 
     Default = 5; 
     Callback = function(Value)
         getgenv().config.Highlight_Esp_Transparency = Value
