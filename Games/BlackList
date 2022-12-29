@@ -1,4 +1,4 @@
-local blacklisted = {
+return {
   "B24FB3BA-8DAC-4FE2-8002-3C52086FC338"
 }
-return blacklisted
+
