@@ -1,9 +1,3 @@
 local blacklisted = {
   "B24FB3BA-8DAC-4FE2-8002-3C52086FC338"
 }
-
-if table.find(blacklisted,game:GetService("RbxAnalyticsService"):GetClientId()) then
-    game.Players.LocalPlayer:Kick("You Have Been BlackListed From This Hub..")
-    getgenv().BlackListed = true
-end
-end)
