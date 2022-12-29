@@ -9,7 +9,7 @@ local UI = Atlas.new({
     Credit = "Made By ronin#5376"; 
     Color = Color3.fromRGB(255,255,255); 
     Bind = "RightControl"; 
-    UseLoader = false; 
+    UseLoader = true; 
 })
 
 local Esp_Page = UI:CreatePage("Esp")
@@ -59,7 +59,7 @@ if getgenv().config.Highlight_Esp then
             elseif v:FindFirstChild("Highlight") then
                 v:FindFirstChild("Highlight").Enabled = true
                 v:FindFirstChild("Highlight").FillTransparency = getgenv().config.Highlight_Esp_Transparency
-                v:FindFirstChild("Highlight").OutlineTransparency = 1
+                v:FindFirstChild("Highlight").OutlineTransparency = 0.3
                 v:FindFirstChild("Highlight").FillColor = getgenv().config.Highlight_Esp_Color
             end
         end
@@ -86,6 +86,7 @@ if getgenv().config.Name_Esp then
                 label_Name.TextScaled = false
                 label_Name.Text = tostring(v.Parent.Name.." | "..math.round(v.Parent.Humanoid.Health).."/"..math.round(v.Parent.Humanoid.MaxHealth))
                 label_Name.Parent = Text_Esp
+                label_Name.TextStrokeTransparency = 0.3
             elseif v:FindFirstChild("BillboardGui") then
                 v:WaitForChild("BillboardGui").StudsOffset = Vector3.new(0,getgenv().config.Name_Displacement,0)
                 v:WaitForChild("BillboardGui"):WaitForChild("TextLabel").TextColor3 = getgenv().config.Highlight_Esp_Color
@@ -129,7 +130,7 @@ Esp:CreateSlider({
     Min = 0; 
     Max = 1;
     AllowOutOfRange = false;
-    Digits = 2; 
+    Digits = 1; 
     Default = 5; 
     Callback = function(Value)
         getgenv().config.Highlight_Esp_Transparency = Value
