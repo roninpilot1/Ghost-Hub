@@ -82,6 +82,7 @@ spawn(function()
                 }
             }
             game:GetService("ReplicatedStorage").Events.TryAttack:FireServer(unpack(args))
+        elseif not found:FindFirstChild("Humanoid") then found.Parent = nil
         end
     end)
 end
@@ -290,10 +291,12 @@ local Quest_DropDown = Main:CreateDropdown({
     SavingDisabled = true;
 })
 
-local quests = {}
+local quests = {"Gura"}
 for i,v in ipairs(game:GetService("Workspace").QuestGivers:GetChildren()) do
+if v.Name ~= "Goora" then
     table.insert(quests,v.Name)
-    Quest_DropDown:Update(quests)
+        Quest_DropDown:Update(quests)
+    end
 end
 
 Main:CreateToggle({ 
