@@ -66,7 +66,7 @@ spawn(function()
     pcall(function()
         local found = game:GetService("Workspace").Main.Live:WaitForChild(getgenv().config.Selected_Mob)
         if found and getgenv().config.AutoFarm and found:FindFirstChild("Humanoid") then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = found:GetModelCFrame()*CFrame.new(0,-10,0)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = found:GetModelCFrame()*CFrame.new(0,-15,0)
             local args = {
                 [1] = {
                     ["Victim"] = found,
@@ -291,9 +291,9 @@ local Quest_DropDown = Main:CreateDropdown({
     SavingDisabled = true;
 })
 
-local quests = {"Gura"}
+local quests = {"Gura","VegetaDemo"}
 for i,v in ipairs(game:GetService("Workspace").QuestGivers:GetChildren()) do
-if v.Name ~= "Goora" then
+if v.Name ~= "Goora" and v.Name ~= "Veggie" then
     table.insert(quests,v.Name)
         Quest_DropDown:Update(quests)
     end
