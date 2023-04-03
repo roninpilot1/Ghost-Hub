@@ -1,8 +1,6 @@
 
 --// Variables \\--
 
-getgenv().Kill_Aura = false
-
 local Updated_On = "2022-10-07T15:12:30.27Z"
 
 local Atlas = loadstring(game:HttpGet("https://siegehub.net/Atlas.lua"))()
@@ -240,7 +238,6 @@ local MyParagraph = Main:CreateParagraph("Godmode gets rid of most damage so don
 Main:CreateButton({
     Name = "Semi God"; 
     Callback = function()
-spawn(function()
 local mt = getrawmetatable(game)
 local old = mt.__namecall
 setreadonly(mt, false)
@@ -262,7 +259,6 @@ game:GetService("Workspace").Bots.ChildAdded:Connect(function()
     notouch()
 end);
 
-end
 })
 --\\
 
@@ -275,7 +271,7 @@ Main:CreateButton({
 end);
 end
 })
-
+getgenv().Kill_Aura = false
 Main:CreateToggle({ 
     Name = "Kill Aura"; 
     Flag = "Kill Aura";
