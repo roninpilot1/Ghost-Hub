@@ -1,0 +1,309 @@
+
+--// Variables \\--
+
+getgenv().Kill_Aura = false
+
+local Updated_On = "2022-10-07T15:12:30.27Z"
+
+local Atlas = loadstring(game:HttpGet("https://siegehub.net/Atlas.lua"))()
+
+local UI = Atlas.new({
+    Name = "Ghost Hub | "..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name; 
+    ConfigFolder = "";
+    Credit = "Made By ronin#5376"; 
+    Color = Color3.fromRGB(255,255,255); 
+    Bind = "RightControl"; 
+    UseLoader = true; 
+})
+
+local Main_Page = UI:CreatePage("Main")
+
+local Esp_Page = UI:CreatePage("Esp")
+
+local Misc_Page = UI:CreatePage("Misc")
+
+local Info_Page = UI:CreatePage("Info")
+
+local Info = Info_Page:CreateSection("Info")
+
+local Main = Main_Page:CreateSection("Main")
+
+local Esp = Esp_Page:CreateSection("Player Esp")
+
+local Misc = Misc_Page:CreateSection("Misc")
+
+--// Script \\--
+
+local Updated = Info:CreateParagraph("The game hasn't been updated since this script was made") 
+if game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Updated ~= Updated_On then
+    Updated.Set("The game has been updated since this script was made some features might get you banned or are patched") 
+end
+local Creator = Info:CreateParagraph("Made by: ronin#5376") 
+Info:CreateButton({
+    Name = "Click To Copy Discord"; 
+    Callback = function()
+        setclipboard("https://discord.gg/4FGbzT5dsZ")
+        toclipboard("https://discord.gg/4FGbzT5dsZ")
+    end
+})
+
+getgenv().config = {
+    Highlight_Esp = false;
+    Highlight_Esp_Color = Color3.fromRGB(255,255,255);
+    Highlight_Esp_Transparency = 0.5;
+    Name_Esp = false;
+    Name_Displacement = 5;
+    Name_Esp_Color = Color3.fromRGB(255,255,255);
+};
+
+game.RunService.Heartbeat:Connect(function()
+if getgenv().config.Highlight_Esp then
+    for i,v in ipairs(game.Players:GetPlayers()) do
+        if v~=game.Players.LocalPlayer then
+            v=v.Character
+            if not v:FindFirstChild("Highlight") and v:WaitForChild("HumanoidRootPart") then
+                local Highlight = Instance.new("Highlight",v)
+                Highlight.OutlineColor = Color3.fromRGB(0,0,0)
+                Highlight.FillColor = Color3.fromRGB(255,0,0)
+                Highlight.Enabled = true
+                Highlight.FillTransparency = 0.5;
+                Highlight.OutlineTransparency = 1
+            elseif v:FindFirstChild("Highlight") then
+                v:FindFirstChild("Highlight").Enabled = true
+                v:FindFirstChild("Highlight").FillTransparency = getgenv().config.Highlight_Esp_Transparency
+                v:FindFirstChild("Highlight").OutlineTransparency = 0.3
+                v:FindFirstChild("Highlight").FillColor = getgenv().config.Highlight_Esp_Color
+            end
+        end
+    end
+end
+end);
+
+game.RunService.Heartbeat:Connect(function()
+if getgenv().config.Name_Esp then
+    for i,v in ipairs(game.Players:GetPlayers()) do
+        if v~=game.Players.LocalPlayer then
+            v=v.Character:WaitForChild("Head")
+            if not v:FindFirstChild("BillboardGui") then
+                local Text_Esp = Instance.new('BillboardGui', v)
+                Text_Esp.Adornee = v
+                Text_Esp.Size = UDim2.new(15,0,1,0)
+                Text_Esp.StudsOffset = Vector3.new(0,5,0)
+                Text_Esp.Parent = v
+                Text_Esp.AlwaysOnTop = true
+                local label_Name = Instance.new("TextLabel")
+                label_Name.BackgroundTransparency = 1
+                label_Name.Size = UDim2.new(1,0,1,0)
+                label_Name.TextColor3 = Color3.new(1,1,1)
+                label_Name.TextScaled = false
+                label_Name.Text = tostring(v.Parent.Name.." | "..math.round(v.Parent.Humanoid.Health).."/"..math.round(v.Parent.Humanoid.MaxHealth))
+                label_Name.Parent = Text_Esp
+                label_Name.TextStrokeTransparency = 0.3
+            elseif v:FindFirstChild("BillboardGui") then
+                v:WaitForChild("BillboardGui").StudsOffset = Vector3.new(0,getgenv().config.Name_Displacement,0)
+                v:WaitForChild("BillboardGui"):WaitForChild("TextLabel").TextColor3 = getgenv().config.Highlight_Esp_Color
+                v:WaitForChild("BillboardGui"):WaitForChild("TextLabel").Text = tostring(v.Parent.Name.." | "..math.round(v.Parent.Humanoid.Health).."/"..math.round(v.Parent.Humanoid.MaxHealth))
+            end
+        end
+    end
+end
+end);
+
+
+--// Buttons \\--
+
+
+--// Esp Buttons \\--
+Esp:CreateToggle({ 
+    Name = "Highlight Esp"; 
+    Flag = "Highlight_Esp";
+    Default = false; 
+    Callback = function(bool)
+    getgenv().config.Highlight_Esp = bool
+    if bool == false then
+        for i,v in ipairs(game.Players:GetPlayers()) do
+            pcall(function()
+            if v~=game.Players.LocalPlayer then
+                v=v.Character
+                if v:FindFirstChild("Highlight") then
+                    v:FindFirstChild("Highlight").Parent = nil
+                end
+            end
+        end)
+    end
+end
+SavingDisabled = true;
+end
+});
+
+Esp:CreateSlider({ 
+    Name = "Highlight Transparency"; 
+    Flag = "MySlider_highlight"; 
+    Min = 0; 
+    Max = 1;
+    AllowOutOfRange = false;
+    Digits = 1; 
+    Default = 5; 
+    Callback = function(Value)
+        getgenv().config.Highlight_Esp_Transparency = Value
+    end;
+    SavingDisabled = true;
+})
+
+Esp:CreateColorPicker({
+    Name = "Highlight Esp Color"; 
+    Flag = "ColorPicker_highlight";
+    Default = Color3.fromRGB(255,255,255); 
+    Callback = function(newColor) 
+        getgenv().config.Highlight_Esp_Color = newColor
+    end;
+})
+
+Esp:CreateToggle({ 
+    Name = "Name Esp"; 
+    Flag = "Name_Esp";
+    Default = false; 
+    Callback = function(bool)
+    getgenv().config.Name_Esp = bool
+    if bool == false then
+        for i,v in ipairs(game.Players:GetPlayers()) do
+            pcall(function()
+            if v~=game.Players.LocalPlayer then
+                v=v.Character:WaitForChild("Head")
+                if v:FindFirstChild("BillboardGui") then
+                    v:FindFirstChild("BillboardGui").Parent = nil
+                end
+            end
+        end)
+    end
+end  
+SavingDisabled = true;
+end;
+})
+
+Esp:CreateSlider({ 
+    Name = "Name Displacement"; 
+    Flag = "MySlider_name"; 
+    Min = -10; 
+    Max = 15;
+    AllowOutOfRange = false;
+    Digits = 2; 
+    Default = 5; 
+    Callback = function(Value)
+        getgenv().config.Name_Displacement = Value
+    end;
+    SavingDisabled = true;
+})
+
+--// Misc Buttons \\--
+
+Misc:CreateButton({
+    Name = "No Fog"; 
+    Callback = function()
+        game:GetService("Lighting"):WaitForChild("Fog").Parent = nil    
+    end
+
+})
+
+Misc:CreateButton({
+    Name = "Full Bright"; 
+    Callback = function()
+        Lighting.Brightness = 2
+	    Lighting.ClockTime = 14
+	    Lighting.FogEnd = 100000
+    	Lighting.GlobalShadows = false
+    	Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128) 
+    end
+})
+
+local ToggleUi = Misc:CreateParagraph("Right Ctrl Toggles The Ui") 
+
+Misc:CreateButton({
+    Name = "Destory Ui"; 
+    Callback = function()
+        UI:Destroy()
+    end
+})
+
+--// Main Buttons \\--
+
+local function notouch()
+for i,v in ipairs(game:GetService("Workspace").Bots:GetDescendants()) do
+    if v:IsA("TouchTransmitter") then
+        v.Parent.Parent = nil
+    end
+end
+end;
+
+--// Meta table godmode
+local MyParagraph = Main:CreateParagraph("Godmode gets rid of most damage so don't go running at a boss") 
+Main:CreateButton({
+    Name = "Semi God"; 
+    Callback = function()
+spawn(function()
+local mt = getrawmetatable(game)
+local old = mt.__namecall
+setreadonly(mt, false)
+
+mt.__namecall = function(memes, ...)
+  local args = {...}
+  local method = getnamecallmethod()
+  if method == "InvokeServer" and memes.Name == "selectt" then
+    args[1] = 0.00001
+  end
+  return old(memes,unpack(args))
+end
+end);
+
+notouch();
+
+game:GetService("Workspace").Bots.ChildAdded:Connect(function()
+    task.wait(1)
+    notouch()
+end);
+
+end
+})
+--\\
+
+Main:CreateButton({
+    Name = "Delete Kill Parts"; 
+    Callback = function()
+    game:GetService("Workspace").BossLasers.ChildAdded:Connect(function(b)
+    task.wait()
+    b.Parent = nil 
+end);
+end
+})
+
+Main:CreateToggle({ 
+    Name = "Kill Aura"; 
+    Flag = "Kill Aura";
+    Default = false; 
+    Callback = function(bool)
+        getgenv().Kill_Aura = bool
+    end;
+    SavingDisabled = true;
+})
+
+game.RunService.Stepped:Connect(function()
+local lplr = game.Players.LocalPlayer
+local weapon = lplr.Character:FindFirstChildOfClass("Tool")
+if getgenv().Kill_Aura then
+for i,v in ipairs(game:GetService("Workspace").Bots:GetDescendants()) do
+    if v.Name == "HumanoidRootPart" and (lplr.Character.HumanoidRootPart.Position - v.Position).magnitude <= 13 and v.Parent.Humanoid.Health > 0 then
+    if not v:FindFirstChild("BoxHandleAdornment") then
+		local a = Instance.new("BoxHandleAdornment",v)
+		a.Adornee = v
+		a.AlwaysOnTop = true
+		a.Size = v.Size
+		a.Color3 = Color3.fromRGB(255,0,0)
+    else
+    weapon:Activate()
+    firetouchinterest(weapon.Handle,v,0)
+    firetouchinterest(weapon.Handle,v,1)
+    end
+    end
+end
+end
+end)
